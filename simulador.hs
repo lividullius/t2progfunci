@@ -12,3 +12,6 @@ data State = State {
     eqz    :: Bool,    -- Flag que indica se o ACC é zero
     ci     :: Int      -- Contador de instruções
 } deriving Show
+
+--funções para ler e escrever na memória, essas funções vão acessar ou atualizar valores da memória
+
