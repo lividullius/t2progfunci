@@ -1,3 +1,4 @@
+--código do simulador
 --pra criar o simulador tem que definir os tipos e estado da máquina
 
 module Simulador where
