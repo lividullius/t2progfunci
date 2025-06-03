@@ -14,4 +14,8 @@ data State = State {
 } deriving Show
 
 --funções para ler e escrever na memória, essas funções vão acessar ou atualizar valores da memória
-
+-- Lê um valor de um endereço da memória. Se o endereço não existir, retorna 0.
+readMemory :: Memory -> Int -> Int
+readMemory mem addr = case lookup addr mem of
+    Just val -> val
+    Nothing  -> 0
