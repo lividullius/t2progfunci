@@ -8,3 +8,11 @@ Construir um simulador de um computador hipotético usando Haskell, trabalhando 
 
 Estrutura do trabalho:
 
+1. Código Haskell do simulador:
+-Definição do estado da máquina
+-Manipulação da memória
+-Execução das instruções
+-Laço de execução (run)
+-Impressão da saída da "memória de vídeo"
+
+
