@@ -10,15 +10,15 @@ Estrutura do trabalho:
 
 1. Código Haskell do simulador
    
--Definição do estado da máquina
+- Definição do estado da máquina
 
--Manipulação da memória
+- Manipulação da memória
 
--Execução das instruções
+- Execução das instruções
 
--Laço de execução (run)
+- Laço de execução (run)
 
--Impressão da saída da "memória de vídeo"
+- Impressão da saída da "memória de vídeo"
 
 2. Definição da lista de memória para cada programa teste os programas já convertidos em assembly e armazenados como listas de tuplas 3 listas:
 
