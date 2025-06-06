@@ -1,1 +1,2 @@
-
+--Programa 1 – Resp = A + B - 2
+--A = 240, B = 241, Resp = 251, Constante 2 = 245
