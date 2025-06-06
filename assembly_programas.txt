@@ -1,0 +1,62 @@
+-- Programa 1 – Resp = A + B - 2
+-- A = 240, B = 241, Resp = 251, Constante 2 = 245
+0   LOD 240     ; Carrega A no acumulador
+2   ADD 241     ; Soma B ao acumulador
+4   SUB 245     ; Subtrai 2 do acumulador
+6   STO 251     ; Armazena o resultado em Resp
+8   HLT         ; Finaliza o programa
+9   NOP         ; (instrução sem efeito)
+
+-- Programa 2 – Resp = A * B (multiplicação por somas sucessivas)
+-- A = 240, B = 241, contador = 245, resultado = 247, constante 1 = 248, Resp = 251
+0   LOD 244     ; Zera acumulador
+2   STO 245     ; contador = 0
+4   LOD 246     ; Zera acumulador
+6   STO 247     ; resultado = 0
+
+8   LOD 245     ; carrega contador
+10  CPE 240     ; compara contador com A
+12  JMZ 24      ; se iguais, pula para fim
+
+14  LOD 247     ; carrega resultado
+16  ADD 241     ; soma B
+18  STO 247     ; atualiza resultado
+
+20  LOD 245     ; carrega contador
+22  ADD 248     ; soma 1
+24  STO 245     ; atualiza contador
+
+26  JMP 8       ; volta para o início do loop
+
+28  LOD 247     ; carrega resultado final
+30  STO 251     ; salva em Resp
+32  HLT
+33  NOP
+
+-- Programa 3 – A = 0; Resp = 1; while(A < 5) { A++; Resp += 2; }
+-- A = 240, Resp = 251, constante 1 = 245, constante 5 = 246, constante 2 = 247
+0   LOD 244     ; carrega 0
+2   STO 240     ; A = 0
+
+4   LOD 245     ; carrega 1
+6   STO 251     ; Resp = 1
+
+8   LOD 240     ; carrega A
+10  CPE 246     ; compara A com 5
+12  JMZ 24      ; se A == 5, fim
+
+14  LOD 240     ; carrega A
+16  ADD 245     ; soma 1
+18  STO 240     ; A = A + 1
+
+20  LOD 251     ; carrega Resp
+22  ADD 247     ; soma 2
+24  STO 251     ; Resp = Resp + 2
+
+26  JMP 8       ; volta para o loop
+
+28  HLT
+29  NOP
+
+
+
