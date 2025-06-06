@@ -6,7 +6,7 @@ Objetivo:
 Construir um simulador de um computador hipotético usando Haskell, trabalhando principalmente com funções recursivas, manipulação de listas e simulação de execução de instruções.
 
 
-  Simulador de Computador Hipotético — Programação Funcional
+  Simulador de Computador Hipotético 
  ============================================================
 
   O programa simula um computador de arquitetura simplificada com as seguintes características:
