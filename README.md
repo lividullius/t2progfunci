@@ -8,7 +8,7 @@ Construir um simulador de um computador hipotético usando Haskell, trabalhando 
 
   ============================================================
   Simulador de Computador Hipotético — Programação Funcional
-  ============================================================
+ 
 
   Este programa simula um computador de arquitetura simplificada com as seguintes características:
 
