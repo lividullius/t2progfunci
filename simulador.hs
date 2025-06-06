@@ -1,18 +1,18 @@
 import System.IO
 
-
+-- Tipos basicos
 type Memoria = [(Int,Int)]
-type Estado = (Memoria, Int, Int)  -- (memoria, acumulador, flag)
+type Estado = (Memoria, Int, Int)  -- (memoria, acumulador, flag_eqz)
 
-
+-- Funcao principal
 main :: IO ()
 main = do
-    putStrLn "=== Simulador de Computador Hipotético ==="
+    putStrLn "=== Simulador de Computador Hipotetico ==="
     putStrLn "1 - Executar programa do arquivo"
     putStrLn "2 - Programa 1: Resp = A + B - 2"
     putStrLn "3 - Programa 2: Resp = A * B"
     putStrLn "4 - Programa 3: Loop while"
-    putStrLn "Escolha uma opção:"
+    putStrLn "Escolha uma opcao:"
     opcao <- getLine
     
     case opcao of
@@ -20,23 +20,23 @@ main = do
         "2" -> testarPrograma1
         "3" -> testarPrograma2  
         "4" -> testarPrograma3
-        _   -> putStrLn "Opção inválida"
+        _   -> putStrLn "Opcao invalida"
 
-
+-- Executa programa lendo de arquivo (BONUS +1.0)
 executarDoArquivo :: IO ()
 executarDoArquivo = do
     putStrLn "Digite o nome do arquivo:"
     nomeArquivo <- getLine
     conteudo <- readFile nomeArquivo
     let memoria = lerMemoriaDoArquivo conteudo
-    putStrLn "Memória carregada do arquivo:"
+    putStrLn "Memoria carregada do arquivo:"
     mostrarMemoria memoria
     let memoriaFinal = executar memoria
-    putStrLn "\nMemória após execução:"
+    putStrLn "\nMemoria apos execucao:"
     mostrarMemoria memoriaFinal
     mostrarVideo memoriaFinal
 
--- Converte conteúdo do arquivo em memória
+-- Converte conteudo do arquivo em memoria
 lerMemoriaDoArquivo :: String -> Memoria
 lerMemoriaDoArquivo conteudo = 
     let linhas = lines conteudo
@@ -47,19 +47,19 @@ lerMemoriaDoArquivo conteudo =
         let [endereco, valor] = map read (words linha)
         in (endereco, valor)
 
--- FUNÇÃO PRINCIPAL DE EXECUÇÃO
--- Recebe uma memória e retorna uma memória resultante da execução
--- Assume que o programa começa no endereço 0
+-- FUNCAO PRINCIPAL DE EXECUCAO
+-- Recebe uma memoria e retorna uma memoria resultante da execucao
+-- Assume que o programa comeca no endereco 0
 executar :: Memoria -> Memoria
 executar memoria = 
     let estadoInicial = (memoria, 0, 0)  -- (memoria, acc=0, eqz=0)
         (memoriaFinal, _, _) = cicloExecucao estadoInicial 0
     in memoriaFinal
 
--- Ciclo principal: busca, decodificação e execução
+-- Ciclo principal: busca, decodificacao e execucao
 cicloExecucao :: Estado -> Int -> Estado
 cicloExecucao estado@(memoria, acc, eqz) pc
-    | pc >= 256 = estado  -- Proteção contra overflow
+    | pc >= 256 = estado  -- Protecao contra overflow
     | otherwise = 
         let codigoInstr = readMem memoria pc
         in if codigoInstr == 20  -- HLT
@@ -70,7 +70,7 @@ cicloExecucao estado@(memoria, acc, eqz) pc
                    novoPc = calcularNovoPc codigoInstr endereco estado (pc + 2)
                in cicloExecucao novoEstado novoPc
 
--- Calcula o novo PC baseado na instrução
+-- Calcula o novo PC baseado na instrucao
 calcularNovoPc :: Int -> Int -> Estado -> Int -> Int
 calcularNovoPc codigo endereco (_, acc, eqz) pcPadrao = 
     case codigo of
@@ -78,7 +78,7 @@ calcularNovoPc codigo endereco (_, acc, eqz) pcPadrao =
         8  -> if eqz == 1 then endereco else pcPadrao  -- JMZ
         _  -> pcPadrao
 
--- Executa uma instrução específica
+-- Executa uma instrucao especifica
 executarInstrucao :: Int -> Int -> Estado -> Estado
 executarInstrucao codigo endereco estado = 
     case codigo of
@@ -91,28 +91,28 @@ executarInstrucao codigo endereco estado =
         16 -> execSUB endereco estado    -- SUB
         18 -> execNOP estado             -- NOP
         20 -> estado                     -- HLT
-        _  -> execNOP estado             -- Instrução inválida = NOP
+        _  -> execNOP estado             -- Instrucao invalida = NOP
 
--- IMPLEMENTAÇÃO DAS INSTRUÇÕES
+-- IMPLEMENTACAO DAS INSTRUCOES
 
--- Instrução NOP - Não executa ação nenhuma
+-- Instrucao NOP - Nao executa acao nenhuma
 execNOP :: Estado -> Estado
 execNOP (mem, acc, eqz) = (mem, acc, eqz)
 
--- Instrução LOD - Carrega conteúdo do endereço no acumulador
+-- Instrucao LOD - Carrega conteudo do endereco no acumulador
 execLOD :: Int -> Estado -> Estado
 execLOD endereco (mem, acc, eqz) = 
     let novoAcc = readMem mem endereco
         novoEqz = if novoAcc == 0 then 1 else 0
     in (mem, novoAcc, novoEqz)
 
--- Instrução STO - Armazena conteúdo do acumulador no endereço
+-- Instrucao STO - Armazena conteudo do acumulador no endereco
 execSTO :: Int -> Estado -> Estado
 execSTO endereco (mem, acc, eqz) = 
     let novaMem = writeMem mem endereco acc
     in (novaMem, acc, eqz)
 
--- Instrução CPE - Compara endereço com acumulador
+-- Instrucao CPE - Compara endereco com acumulador
 execCPE :: Int -> Estado -> Estado
 execCPE endereco (mem, acc, eqz) = 
     let valor = readMem mem endereco
@@ -120,7 +120,7 @@ execCPE endereco (mem, acc, eqz) =
         novoEqz = if novoAcc == 0 then 1 else 0
     in (mem, novoAcc, novoEqz)
 
--- Instrução ADD - Adiciona conteúdo do endereço ao acumulador
+-- Instrucao ADD - Adiciona conteudo do endereco ao acumulador
 execADD :: Int -> Estado -> Estado
 execADD endereco (mem, acc, eqz) = 
     let valor = readMem mem endereco
@@ -128,7 +128,7 @@ execADD endereco (mem, acc, eqz) =
         novoEqz = if novoAcc == 0 then 1 else 0
     in (mem, novoAcc, novoEqz)
 
--- Instrução SUB - Subtrai conteúdo do endereço do acumulador
+-- Instrucao SUB - Subtrai conteudo do endereco do acumulador
 execSUB :: Int -> Estado -> Estado
 execSUB endereco (mem, acc, eqz) = 
     let valor = readMem mem endereco
@@ -136,16 +136,16 @@ execSUB endereco (mem, acc, eqz) =
         novoEqz = if novoAcc == 0 then 1 else 0
     in (mem, novoAcc, novoEqz)
 
--- FUNÇÕES AUXILIARES PARA MEMÓRIA
+-- FUNCOES AUXILIARES PARA MEMORIA
 
--- Ler a memória - Retorna o conteúdo do endereço
+-- Ler a memoria - Retorna o conteudo do endereco
 readMem :: Memoria -> Int -> Int
-readMem [] _ = 0  -- Endereço não encontrado retorna 0
+readMem [] _ = 0  -- Endereco nao encontrado retorna 0
 readMem (m:ms) e
     | e == fst m = snd m
     | e /= fst m = readMem ms e
 
--- Escrever na memória - Armazena conteúdo em um endereço
+-- Escrever na memoria - Armazena conteudo em um endereco
 writeMem :: Memoria -> Int -> Int -> Memoria
 writeMem [] endereco valor = [(endereco, valor)]
 writeMem (m:ms) endereco valor
@@ -180,7 +180,7 @@ testarPrograma1 = do
     putStrLn "\nResultado:"
     mostrarVideo resultado
 
--- Programa 2: Resp = A * B (multiplicação por somas sucessivas)
+-- Programa 2: Resp = A * B (multiplicacao por somas sucessivas)
 prog2 :: Memoria  
 prog2 = [(0,2),(1,244),     -- LOD 0 (contador)
          (2,4),(3,245),     -- STO contador
@@ -246,7 +246,7 @@ testarPrograma3 = do
     putStrLn $ "A (240): " ++ show (readMem resultado 240)
     putStrLn $ "Resp (251): " ++ show (readMem resultado 251)
 
--- FUNÇÕES DE EXIBIÇÃO
+-- FUNCOES DE EXIBICAO
 
 mostrarMemoria :: Memoria -> IO ()
 mostrarMemoria memoria = 
@@ -255,14 +255,14 @@ mostrarMemoria memoria =
 
 mostrarVideo :: Memoria -> IO ()
 mostrarVideo memoria = do
-    putStrLn "=== SAÍDA DE VÍDEO (251-255) ==="
+    putStrLn "=== SAIDA DE VIDEO (251-255) ==="
     putStrLn $ "251: " ++ show (readMem memoria 251)
     putStrLn $ "252: " ++ show (readMem memoria 252)
     putStrLn $ "253: " ++ show (readMem memoria 253)
     putStrLn $ "254: " ++ show (readMem memoria 254)
     putStrLn $ "255: " ++ show (readMem memoria 255)
 
--- Ordenação simples da memória para exibição
+-- Ordenacao simples da memoria para exibicao
 ordenarMemoria :: Memoria -> Memoria
 ordenarMemoria [] = []
 ordenarMemoria (x:xs) = 
