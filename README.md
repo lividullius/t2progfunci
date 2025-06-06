@@ -1,5 +1,4 @@
-# t2pf
-Trabalho 2 Programação Funcional
+#Trabalho 2 Programação Funcional
 
 Desenvolvido por: Filipe Freitas, Lívia Nöer e Otávio Kozak
 
@@ -10,7 +9,7 @@ Construir um simulador de um computador hipotético usando Haskell, trabalhando 
   Simulador de Computador Hipotético — Programação Funcional
  ============================================================
 
-  Este programa simula um computador de arquitetura simplificada com as seguintes características:
+  O programa simula um computador de arquitetura simplificada com as seguintes características:
 
   ▶ Memória:
     - 256 posições de memória endereçadas de 0 a 255
@@ -60,7 +59,6 @@ Construir um simulador de um computador hipotético usando Haskell, trabalhando 
         1. Programas carregados a partir de arquivo
         2. Programas de teste embutidos
 
-  ============================================================
 
 
 
