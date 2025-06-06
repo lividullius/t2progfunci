@@ -1,2 +1,9 @@
---Programa 1 – Resp = A + B - 2
---A = 240, B = 241, Resp = 251, Constante 2 = 245
+-- Programa 1 – Resp = A + B - 2
+-- A = 240, B = 241, Resp = 251, Constante 2 = 245
+0   LOD 240     ; Carrega A no acumulador
+2   ADD 241     ; Soma B ao acumulador
+4   SUB 245     ; Subtrai 2 do acumulador
+6   STO 251     ; Armazena o resultado em Resp
+8   HLT         ; Finaliza o programa
+9   NOP         ; (instrução sem efeito)
+
