@@ -1,6 +1,5 @@
--- ============================================================
+
 -- Listas de memória com programas convertidos do assembly
--- ============================================================
 
 -- Programa 1: Resp = A + B - 2
 -- A = 240, B = 241, Constante 2 = 245, Resp = 251
