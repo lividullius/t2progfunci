@@ -1,4 +1,4 @@
-#Trabalho 2 Programação Funcional
+# Trabalho 2 Programação Funcional
 
 Desenvolvido por: Filipe Freitas, Lívia Nöer e Otávio Kozak
 
